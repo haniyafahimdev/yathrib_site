@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book — Yaribith Nail Artistry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0b0f; --bg-deep:#050408; --card:#18141b;
+    --ink:#f5eef2; --ink-soft:#ab9aa3;
+    --magenta:#e0327f; --magenta-soft:#ff5fa8;
+    --orange:#ff7a3d; --orange-soft:#ffab6e;
+    --line:rgba(255,255,255,0.16); --line-accent:rgba(255,122,61,0.4);
+    --max-w:760px;
+    --gradient:linear-gradient(135deg, var(--magenta), var(--orange));
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'Manrope',sans-serif; font-weight:300;}
+  h1,h2,h3{font-family:'Unbounded',sans-serif; font-weight:700; margin:0; color:var(--ink);}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:var(--max-w); margin:0 auto; padding:0 24px;}
+  .mono{font-family:'Manrope',sans-serif;}
+  .eyebrow{font-family:'Manrope',sans-serif; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange);}
+
+  .top-nav{display:flex; justify-content:space-between; align-items:center; padding:20px 0; border-bottom:1px solid var(--line); margin-bottom:40px;}
+  .back-link{font-size:0.82rem; letter-spacing:0.04em; color:var(--ink-soft); display:flex; align-items:center; gap:8px;}
+  .back-link:hover{color:var(--magenta);}
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand svg{width:22px; height:22px;}
+  .brand-word{font-family:'Unbounded',sans-serif; font-style:normal; font-weight:700; font-size:1.2rem; color:var(--magenta);}
+  .brand-sub{display:block; font-family:'Manrope',sans-serif; font-size:0.54rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--orange); margin-top:2px;}
+
+  .head{text-align:center; margin-bottom:32px;}
+  .head h1{font-size:clamp(2rem,4.5vw,2.8rem); margin-top:8px;}
+  .head p.sub{color:var(--ink-soft); margin-top:12px; font-size:1rem;}
+
+  .notice-board{position:relative; margin:0 0 44px; padding:24px 26px; border:1px solid var(--line-accent); border-left:3px solid var(--orange); border-radius:4px; background:var(--card);}
+  .notice-title{font-family:'Unbounded',sans-serif; font-style:italic; font-size:1rem; color:var(--magenta); margin:0 0 12px; font-weight:600;}
+  .notice-list{margin:0; padding-left:20px; color:var(--ink); font-size:0.86rem; line-height:1.75;}
+  .notice-list li{margin-bottom:4px;}
+  .notice-list strong{color:var(--magenta);}
+
+  /* ---------- numbered step progress bar (real sequence: service -> date -> time -> details) ---------- */
+  .stepper{display:flex; margin-bottom:36px; border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+  .step-tab{flex:1; display:flex; align-items:center; gap:10px; padding:16px 14px; border-right:1px solid var(--line); background:var(--card); transition:background .3s ease;}
+  .step-tab:last-child{border-right:none;}
+  .step-tab.active{background:var(--magenta);}
+  .step-tab.done{background:var(--bg-deep);}
+  .step-num{font-family:'Manrope',sans-serif; font-size:0.78rem; width:22px; height:22px; border-radius:50%; border:1px solid var(--line-accent); display:flex; align-items:center; justify-content:center; flex:0 0 auto; color:var(--magenta);}
+  .step-tab.active .step-num{background:var(--orange); border-color:var(--orange); color:var(--magenta);}
+  .step-tab.done .step-num{background:var(--magenta); border-color:var(--magenta); color:var(--ink);}
+  .step-label{font-size:0.76rem; letter-spacing:0.03em; color:var(--ink-soft); font-weight:500;}
+  .step-tab.active .step-label{color:var(--ink);}
+  @media (max-width:560px){ .step-label{display:none;} .step-tab{justify-content:center;} }
+
+  .card{border:1px solid var(--line); border-radius:8px; padding:32px; margin-bottom:22px; background:var(--card);}
+  .card-eyebrow{font-family:'Manrope',sans-serif; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--orange); margin-bottom:14px; font-weight:500;}
+
+  .service-select{
+    width:100%; font-family:'Manrope',sans-serif; font-size:1rem; padding:14px 16px;
+    border-radius:5px; border:1px solid var(--line); background:var(--bg); color:var(--ink);
+    appearance:none; -webkit-appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5eef2' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");
+    background-repeat:no-repeat; background-position:right 16px center; background-size:16px;
+  }
+  .service-select:focus{border-color:var(--orange); outline:none;}
+
+  .upload-zone{border:1px dashed var(--line-accent); border-radius:6px; padding:24px; text-align:center; cursor:pointer; transition:border-color .25s ease, background .25s ease; background:var(--bg);}
+  .upload-zone:hover{border-color:var(--orange); background:var(--bg-deep);}
+  .upload-zone svg{width:24px; height:24px; margin-bottom:8px; opacity:0.6;}
+  .upload-zone p{margin:0; font-size:0.86rem; color:var(--ink-soft);}
+  .upload-zone input{display:none;}
+  .image-previews{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;}
+  .preview-thumb{position:relative; width:68px; height:68px; border-radius:5px; overflow:hidden; border:1px solid var(--line);}
+  .preview-thumb img{width:100%; height:100%; object-fit:cover;}
+  .preview-thumb .remove-thumb{position:absolute; top:2px; right:2px; width:18px; height:18px; border-radius:50%; background:rgba(0,0,0,0.75); color:#fff; border:none; font-size:0.68rem; line-height:18px; cursor:pointer; padding:0;}
+  .upload-note{font-size:0.74rem; color:var(--ink-soft); margin-top:8px;}
+
+  input[type="date"]{width:100%; font-family:'Manrope',sans-serif; font-size:1rem; padding:14px 16px; border-radius:5px; border:1px solid var(--line); background:var(--bg); color:var(--ink);}
+
+  .slots{display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:9px; margin-top:16px;}
+  .slot{padding:11px 8px; border-radius:5px; text-align:center; cursor:pointer; font-size:0.86rem; font-family:'Manrope',sans-serif; border:1px solid var(--line); background:var(--bg); color:var(--ink); transition:all .2s ease;}
+  .slot:hover:not(.taken){border-color:var(--orange);}
+  .slot.selected{background:var(--gradient); color:var(--bg-deep); border-color:transparent; font-weight:600;}
+  .slot.taken{opacity:0.35; text-decoration:line-through; cursor:not-allowed;}
+  .slots-empty{color:var(--ink-soft); font-style:italic; font-family:'Unbounded',sans-serif; font-size:1.3rem;}
+
+  .field{display:flex; flex-direction:column; gap:7px; margin-bottom:16px;}
+  .field label{font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft);}
+  .field input, .field textarea{font-family:'Manrope',sans-serif; font-size:0.96rem; font-weight:300; background:var(--bg); border:1px solid var(--line); border-radius:5px; padding:12px 14px; color:var(--ink); outline:none;}
+  .field input:focus, .field textarea:focus{border-color:var(--orange);}
+  .field textarea{resize:vertical; min-height:80px;}
+
+  .submit-btn{width:100%; padding:18px; border:none; border-radius:999px; cursor:pointer; background:var(--gradient); color:var(--bg-deep); font-family:'Unbounded',sans-serif; font-weight:700; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; transition:transform .25s ease, opacity .3s ease; box-shadow:0 14px 30px -14px rgba(224,50,127,0.6);}
+  .submit-btn:hover{transform:translateY(-2px);}
+  .submit-btn:disabled{opacity:0.5; cursor:not-allowed; transform:none;}
+
+  .status-msg{text-align:center; padding:14px; border-radius:5px; font-size:0.9rem; margin-top:16px; display:none;}
+  .status-msg.show{display:block;}
+  .status-msg.error{background:rgba(180,70,70,0.1); color:#8a3c3c; border:1px solid rgba(180,70,70,0.25);}
+  .status-msg.success{background:rgba(255,255,255,0.08); color:var(--magenta); border:1px solid var(--line);}
+
+  .success-screen{text-align:center; padding:56px 30px;}
+  .success-screen svg{width:52px; height:52px; margin-bottom:18px;}
+  .success-screen h2{font-size:1.9rem; margin-bottom:14px;}
+  .success-screen p{color:var(--ink-soft); line-height:1.7; max-width:420px; margin:0 auto;}
+
+  @media (max-width:600px){
+    .card{padding:22px;}
+    .top-nav{flex-direction:column; gap:14px; text-align:center;}
+  }
+  .page-loader{position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:var(--bg); transition:opacity .5s ease, visibility .5s ease;}
+  .page-loader.loader-hidden{opacity:0; visibility:hidden; pointer-events:none;}
+  .loader-mark{width:48px; height:48px; border-radius:50%; background:var(--gradient); opacity:0; animation:loaderIn 1.4s ease-in-out infinite;}
+  @keyframes loaderIn{0%,100%{opacity:0.3; transform:scale(0.9);} 50%{opacity:1; transform:scale(1);}}
+  .loader-word{font-family:'Unbounded',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink);}
+  @media (prefers-reduced-motion: reduce){ .loader-mark{animation:none; opacity:1;} }
+</style>
+</head>
+<body>
+<div id="pageLoader" class="page-loader" aria-hidden="true">
+  <div class="loader-mark"></div>
+  <p class="loader-word">Yaribith Nail Artistry</p>
+</div>
+<script>
+  (function(){
+    var loader = document.getElementById('pageLoader');
+    if(!loader) return;
+    document.documentElement.style.overflow = 'hidden';
+    var minTime = new Promise(function(res){ setTimeout(res, 2000); });
+    var pageReady = new Promise(function(res){ if(document.readyState === 'complete') res(); else window.addEventListener('load', res); });
+    Promise.all([minTime, pageReady]).then(function(){
+      loader.classList.add('loader-hidden');
+      document.documentElement.style.overflow = '';
+      setTimeout(function(){ if(loader.parentNode) loader.remove(); }, 550);
+    });
+  })();
+</script>
+
+<div class="wrap" style="padding-bottom:100px;">
+  <div class="top-nav">
+    <a href="index.html" class="back-link">&larr; Back to site</a>
+    <span class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#e0327f" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2"/></svg>
+      <span class="brand-word">Yaribith</span>
+    </span>
+  </div>
+
+  <div class="head">
+    <span class="eyebrow">Let's Get You Booked</span>
+    <h1 style="margin-top:8px;">Book Your Appointment</h1>
+    <p class="sub">Pick a service, date, and time — I'll confirm within a day.</p>
+  </div>
+
+  <div class="notice-board">
+    <p class="notice-title">Before you book</p>
+    <ul class="notice-list">
+      <li>Pricing is for <strong>bare nails only</strong> — I don't fill or rebalance other techs' work.</li>
+      <li>Enhancement pricing includes all-over color (up to 5 colors) and broken nail fixes within 2 weeks.</li>
+      <li>Upload your inspo pics below so I know exactly what you're going for.</li>
+    </ul>
+  </div>
+
+  <div class="stepper" id="stepper">
+    <div class="step-tab active" data-step="1"><span class="step-num">1</span><span class="step-label">Service</span></div>
+    <div class="step-tab" data-step="2"><span class="step-num">2</span><span class="step-label">Date</span></div>
+    <div class="step-tab" data-step="3"><span class="step-num">3</span><span class="step-label">Time</span></div>
+    <div class="step-tab" data-step="4"><span class="step-num">4</span><span class="step-label">Details</span></div>
+  </div>
+
+  <form id="bookingForm">
+    <div class="card" data-card="1">
+      <div class="card-eyebrow">Step 1 — Service</div>
+      <select id="serviceSelect" class="service-select" required>
+        <option value="" disabled selected>Loading services…</option>
+      </select>
+    </div>
+
+    <div class="card" data-card="2">
+      <div class="card-eyebrow">Step 2 — Date</div>
+      <input type="date" id="dateInput" required>
+    </div>
+
+    <div class="card" data-card="3">
+      <div class="card-eyebrow">Step 3 — Time</div>
+      <div class="slots" id="slotsContainer">
+        <p class="slots-empty">Pick a date above to see open times</p>
+      </div>
+    </div>
+
+    <div class="card" data-card="4">
+      <div class="card-eyebrow">Step 4 — Your Details</div>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" type="text" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="contact">Phone or Email</label>
+        <input id="contact" type="text" placeholder="Best way to reach you" required>
+      </div>
+      <div class="field">
+        <label for="instagram">Instagram Handle (optional)</label>
+        <input id="instagram" type="text" placeholder="@yourhandle">
+      </div>
+      <div class="field">
+        <label for="notes">Notes (optional)</label>
+        <textarea id="notes" placeholder="Design inspo, nail length, anything else"></textarea>
+      </div>
+      <div class="field">
+        <label>Inspo Photos (optional)</label>
+        <label class="upload-zone" id="uploadZone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#e0327f" stroke-width="1.5"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+          <p>Tap to add photos of the look you want</p>
+          <input type="file" id="imageInput" accept="image/*" multiple>
+        </label>
+        <div class="image-previews" id="imagePreviews"></div>
+        <p class="upload-note" id="uploadNote"></p>
+      </div>
+      <button type="submit" class="submit-btn" id="submitBtn">Request Appointment</button>
+      <div class="status-msg" id="statusMsg"></div>
+    </div>
+  </form>
+
+  <div class="card success-screen" id="successScreen" style="display:none;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#ff7a3d" stroke-width="1.5"><path d="M9 12l2 2 4-4M12 21a9 9 0 100-18 9 9 0 000 18z"/></svg>
+    <h2>Request sent!</h2>
+    <p>Thanks — your request is pending confirmation. I'll reach out within a day to confirm your appointment. If it doesn't work, I'll let you know so you can pick another time. 🤍</p>
+  </div>
+</div>
+
+<script type="module">
+  import { db, DEFAULT_BUSINESS_HOURS, DEFAULT_SLOT_LENGTH_MINUTES } from './firebase-config.js';
+  import { collection, query, where, getDocs, addDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { uploadToCloudinary } from './cloudinary-upload.js';
+  import { getActiveServices, getBusinessSettings, formatServicePrice } from './site-data.js';
+
+  let BUSINESS_HOURS = DEFAULT_BUSINESS_HOURS;
+  let SLOT_LENGTH_MINUTES = DEFAULT_SLOT_LENGTH_MINUTES;
+  let BLOCKED_DATES = [];
+
+  const serviceSelect = document.getElementById('serviceSelect');
+  const dateInput = document.getElementById('dateInput');
+  const slotsContainer = document.getElementById('slotsContainer');
+  const form = document.getElementById('bookingForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusMsg = document.getElementById('statusMsg');
+  const successScreen = document.getElementById('successScreen');
+  const uploadZone = document.getElementById('uploadZone');
+  const imageInput = document.getElementById('imageInput');
+  const imagePreviews = document.getElementById('imagePreviews');
+  const uploadNote = document.getElementById('uploadNote');
+  const stepTabs = document.querySelectorAll('.step-tab');
+
+  let selectedSlot = null;
+  let selectedFiles = [];
+  const MAX_IMAGES = 4;
+
+  const todayStr = new Date().toISOString().split('T')[0];
+  dateInput.min = todayStr;
+
+  // ---------- step tracker: reflects progress through the form as a real sequence ----------
+  function updateSteps(){
+    const state = {
+      1: !!serviceSelect.value,
+      2: !!dateInput.value,
+      3: !!selectedSlot,
+      4: !!(document.getElementById('name').value && document.getElementById('contact').value)
+    };
+    let activeSet = false;
+    stepTabs.forEach(tab => {
+      const n = Number(tab.dataset.step);
+      tab.classList.remove('active','done');
+      if(state[n]){ tab.classList.add('done'); }
+      else if(!activeSet){ tab.classList.add('active'); activeSet = true; }
+    });
+    if(!activeSet) stepTabs[stepTabs.length-1].classList.add('active');
+  }
+
+  async function init(){
+    const settings = await getBusinessSettings();
+    if(settings){
+      if(settings.hours) BUSINESS_HOURS = settings.hours;
+      if(settings.slotLength) SLOT_LENGTH_MINUTES = settings.slotLength;
+      if(settings.blockedDates) BLOCKED_DATES = settings.blockedDates;
+    }
+
+    const services = await getActiveServices();
+    serviceSelect.innerHTML = '<option value="" disabled selected>Choose a service…</option>';
+    if(services.length === 0){
+      serviceSelect.innerHTML = '<option value="" disabled selected>No services available — please check back soon</option>';
+      return;
+    }
+    services.forEach(svc => {
+      const priceInfo = formatServicePrice(svc);
+      const label = priceInfo.isAsk ? `${svc.name} — Ask for pricing` : `${svc.name} — ${priceInfo.label}`;
+      const opt = document.createElement('option');
+      opt.value = label;
+      opt.textContent = label;
+      serviceSelect.appendChild(opt);
+    });
+  }
+  init();
+
+  imageInput.addEventListener('change', () => {
+    const newFiles = Array.from(imageInput.files || []);
+    for(const file of newFiles){
+      if(selectedFiles.length >= MAX_IMAGES) break;
+      if(!file.type.startsWith('image/')) continue;
+      selectedFiles.push(file);
+    }
+    imageInput.value = '';
+    renderPreviews();
+  });
+
+  function renderPreviews(){
+    imagePreviews.innerHTML = '';
+    selectedFiles.forEach((file, i) => {
+      const thumb = document.createElement('div');
+      thumb.className = 'preview-thumb';
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'remove-thumb';
+      removeBtn.type = 'button';
+      removeBtn.textContent = '✕';
+      removeBtn.addEventListener('click', () => {
+        selectedFiles.splice(i, 1);
+        renderPreviews();
+      });
+      thumb.appendChild(img);
+      thumb.appendChild(removeBtn);
+      imagePreviews.appendChild(thumb);
+    });
+    uploadNote.textContent = selectedFiles.length >= MAX_IMAGES ? `Max ${MAX_IMAGES} photos` : '';
+  }
+
+  function generateSlots(dayOfWeek){
+    const hours = BUSINESS_HOURS[dayOfWeek];
+    if(!hours) return [];
+    const [startH, startM] = hours.start.split(':').map(Number);
+    const [endH, endM] = hours.end.split(':').map(Number);
+    let cursor = startH * 60 + startM;
+    const end = endH * 60 + endM;
+    const slots = [];
+    while(cursor + SLOT_LENGTH_MINUTES <= end){
+      const h = Math.floor(cursor / 60);
+      const m = cursor % 60;
+      slots.push(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`);
+      cursor += SLOT_LENGTH_MINUTES;
+    }
+    return slots;
+  }
+
+  function formatSlotLabel(time24){
+    const [h, m] = time24.split(':').map(Number);
+    const period = h >= 12 ? 'PM' : 'AM';
+    const h12 = h % 12 === 0 ? 12 : h % 12;
+    return `${h12}:${String(m).padStart(2,'0')} ${period}`;
+  }
+
+  async function loadSlots(){
+    selectedSlot = null;
+    const dateVal = dateInput.value;
+    if(!dateVal){
+      slotsContainer.innerHTML = '<p class="slots-empty">Pick a date above to see open times</p>';
+      updateSteps();
+      return;
+    }
+    slotsContainer.innerHTML = '<p class="slots-empty">Loading times…</p>';
+
+    if(BLOCKED_DATES.includes(dateVal)){
+      slotsContainer.innerHTML = '<p class="slots-empty">Closed this day — try another date</p>';
+      updateSteps();
+      return;
+    }
+
+    const [y, mo, d] = dateVal.split('-').map(Number);
+    const dow = new Date(y, mo - 1, d).getDay();
+    const allSlots = generateSlots(dow);
+
+    if(allSlots.length === 0){
+      slotsContainer.innerHTML = '<p class="slots-empty">Closed this day — try another date</p>';
+      updateSteps();
+      return;
+    }
+
+    let takenTimes = [];
+    try{
+      const q = query(collection(db, 'bookings'), where('date', '==', dateVal), where('status', '==', 'confirmed'));
+      const snap = await getDocs(q);
+      takenTimes = snap.docs.map(doc => doc.data().time);
+    }catch(err){
+      console.error('Could not load existing bookings:', err);
+    }
+
+    slotsContainer.innerHTML = '';
+    allSlots.forEach(time => {
+      const el = document.createElement('div');
+      const isTaken = takenTimes.includes(time);
+      el.className = 'slot' + (isTaken ? ' taken' : '');
+      el.textContent = formatSlotLabel(time);
+      el.dataset.time = time;
+      if(!isTaken){
+        el.addEventListener('click', () => {
+          slotsContainer.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+          el.classList.add('selected');
+          selectedSlot = time;
+          updateSteps();
+        });
+      }
+      slotsContainer.appendChild(el);
+    });
+    updateSteps();
+  }
+
+  dateInput.addEventListener('change', loadSlots);
+  serviceSelect.addEventListener('change', updateSteps);
+  document.getElementById('name').addEventListener('input', updateSteps);
+  document.getElementById('contact').addEventListener('input', updateSteps);
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusMsg.className = 'status-msg';
+    statusMsg.textContent = '';
+
+    if(!serviceSelect.value){ showStatus('Please choose a service.', 'error'); return; }
+    if(!dateInput.value){ showStatus('Please choose a date.', 'error'); return; }
+    if(!selectedSlot){ showStatus('Please choose a time.', 'error'); return; }
+
+    const name = document.getElementById('name').value.trim();
+    const contact = document.getElementById('contact').value.trim();
+    let instagram = document.getElementById('instagram').value.trim();
+    if(instagram && !instagram.startsWith('@')) instagram = '@' + instagram;
+    const notes = document.getElementById('notes').value.trim();
+
+    if(!name || !contact){ showStatus('Please fill in your name and contact info.', 'error'); return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    const booking = {
+      service: serviceSelect.value,
+      date: dateInput.value,
+      time: selectedSlot,
+      name, contact, instagram, notes,
+      images: [],
+      status: 'pending',
+      createdAt: serverTimestamp()
+    };
+
+    try{
+      const docRef = await addDoc(collection(db, 'bookings'), booking);
+
+      let imageUrls = [];
+      if(selectedFiles.length > 0){
+        submitBtn.textContent = 'Uploading photos…';
+        try{
+          imageUrls = await Promise.all(selectedFiles.map(async (file) => {
+            const { url } = await uploadToCloudinary(file, `bookings/${docRef.id}`);
+            return url;
+          }));
+          await updateDoc(docRef, { images: imageUrls });
+        }catch(uploadErr){
+          console.warn('Booking saved, but image upload failed:', uploadErr);
+        }
+      }
+
+      try{
+        const emailRes = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ type: 'new', bookingId: docRef.id, ...booking, images: imageUrls, createdAt: undefined })
+        });
+        if(!emailRes.ok){
+          const errBody = await emailRes.json().catch(() => ({}));
+          console.warn('Booking saved, but notification email failed:', emailRes.status, errBody.detail || errBody.error || '');
+        }
+      }catch(emailErr){
+        console.warn('Booking saved, but notification email failed:', emailErr);
+      }
+
+      form.style.display = 'none';
+      document.getElementById('stepper').style.display = 'none';
+      successScreen.style.display = 'block';
+    }catch(err){
+      console.error(err);
+      showStatus('Something went wrong saving your request. Please try again or DM on Instagram.', 'error');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Request Appointment';
+    }
+  });
+
+  function showStatus(msg, type){
+    statusMsg.textContent = msg;
+    statusMsg.className = `status-msg show ${type}`;
+  }
+</script>
+
+</body>
+</html>

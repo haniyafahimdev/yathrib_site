@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaribith Nail Artistry — Nail Artist in Phoenix, AZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0b0f;
+    --bg-deep:#050408;
+    --card:#18141b;
+    --ink:#f5eef2;
+    --ink-soft:#ab9aa3;
+    --magenta:#e0327f;
+    --magenta-soft:#ff5fa8;
+    --orange:#ff7a3d;
+    --orange-soft:#ffab6e;
+    --line:rgba(255,255,255,0.14);
+    --line-accent:rgba(255,122,61,0.4);
+    --max-w:1280px;
+    --gradient:linear-gradient(135deg, var(--magenta), var(--orange));
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'Manrope',sans-serif; font-weight:400; overflow-x:hidden;}
+  h1,h2,h3{font-family:'Unbounded',sans-serif; font-weight:700; margin:0; color:var(--ink); letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--max-w); margin:0 auto; padding:0 28px;}
+  button{font-family:inherit;}
+  .grad-text{background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .eyebrow{font-family:'Manrope',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--orange); display:inline-block;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- minimal top bar: logo + hamburger only ---------- */
+  .topbar{position:sticky; top:0; z-index:100; background:rgba(13,11,15,0.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .topbar-inner{display:flex; align-items:center; justify-content:space-between; padding:16px 28px;}
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{width:34px; height:34px; border-radius:50%; background:var(--gradient); display:flex; align-items:center; justify-content:center; flex:0 0 auto;}
+  .brand-mark svg{width:17px; height:17px;}
+  .brand-word{font-family:'Unbounded',sans-serif; font-weight:800; font-size:1.05rem; letter-spacing:-0.01em; line-height:1; text-transform:uppercase;}
+  .menu-toggle{
+    display:flex; align-items:center; gap:8px; background:none; border:1px solid var(--line); color:var(--ink);
+    cursor:pointer; padding:9px 16px; border-radius:999px; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+    transition:border-color .25s ease;
+  }
+  .menu-toggle:hover{border-color:var(--orange);}
+  .menu-toggle .bars{display:flex; flex-direction:column; gap:3px;}
+  .menu-toggle .bars span{width:14px; height:1.5px; background:var(--ink); display:block;}
+
+  .desktop-nav{display:none; align-items:center; gap:36px;}
+  .desktop-nav a{
+    font-family:'Manrope',sans-serif; font-size:0.84rem; font-weight:600; color:var(--ink-soft);
+    position:relative; padding:6px 0; transition:color .2s ease;
+  }
+  .desktop-nav a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--gradient);
+    transition:width .25s ease;
+  }
+  .desktop-nav a:hover{color:var(--ink);}
+  .desktop-nav a:hover::after{width:100%;}
+  .desktop-nav .nav-book{
+    font-family:'Unbounded',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase;
+    background:var(--gradient); color:var(--bg-deep); padding:11px 22px; border-radius:999px; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .desktop-nav .nav-book::after{display:none;}
+  .desktop-nav .nav-book:hover{color:var(--bg-deep); transform:translateY(-2px); box-shadow:0 10px 22px -10px rgba(224,50,127,0.7);}
+
+  @media (min-width:900px){
+    .desktop-nav{display:flex;}
+    .menu-toggle{display:none;}
+  }
+
+  .mobile-panel{
+    display:none; position:fixed; inset:0; z-index:200; background:var(--bg-deep);
+    flex-direction:column; padding:100px 32px 40px;
+  }
+  .mobile-panel.open{display:flex;}
+  .mobile-panel a{font-family:'Unbounded',sans-serif; font-size:2rem; font-weight:700; padding:14px 0; border-bottom:1px solid var(--line); text-transform:uppercase;}
+  .mobile-panel .close-panel{position:absolute; top:20px; right:24px; background:none; border:none; color:var(--ink); font-size:2rem; cursor:pointer; line-height:1;}
+  .mobile-panel .mobile-social{margin-top:30px; display:flex; gap:16px; font-family:'Manrope',sans-serif; font-size:0.85rem; color:var(--ink-soft);}
+
+  /* ---------- marquee ticker ---------- */
+  .ticker{background:var(--gradient); overflow:hidden; padding:10px 0; white-space:nowrap;}
+  .ticker-track{display:inline-flex; animation:scrollTicker 26s linear infinite;}
+  .ticker-track span{
+    font-family:'Unbounded',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--bg-deep); padding:0 28px; display:inline-flex; align-items:center; gap:28px;
+  }
+  @keyframes scrollTicker{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- poster hero ---------- */
+  .hero{position:relative; padding:70px 0 60px; border-bottom:1px solid var(--line); overflow:hidden;}
+  .hero::before{
+    content:''; position:absolute; top:-30%; right:-15%; width:520px; height:520px; border-radius:50%;
+    background:var(--gradient); opacity:0.22; filter:blur(90px); pointer-events:none;
+  }
+  .hero-inner{position:relative; display:grid; grid-template-columns:1fr; gap:0;}
+  .hero-eyebrow-row{display:flex; align-items:center; gap:14px; margin-bottom:18px;}
+  .hero-badge{
+    width:52px; height:52px; border-radius:50%; padding:3px; background:var(--gradient); flex:0 0 auto;
+  }
+  .hero-badge-inner{width:100%; height:100%; border-radius:50%; background:var(--bg); display:flex; align-items:center; justify-content:center;}
+  .hero-badge-inner svg{width:24px; height:24px;}
+  .hero h1{
+    font-size:clamp(3.2rem, 10vw, 7.4rem); line-height:0.88; text-transform:uppercase; letter-spacing:-0.02em;
+  }
+  .hero h1 .line2{display:block; margin-top:4px;}
+  .hero-sub-row{display:grid; grid-template-columns:1fr auto; gap:40px; align-items:end; margin-top:32px;}
+  .hero-lede{font-size:1.08rem; color:var(--ink-soft); line-height:1.75; max-width:460px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-top:26px;}
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:17px 30px; background:var(--gradient); color:var(--bg-deep);
+    font-family:'Unbounded',sans-serif; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:700;
+    border-radius:999px; transition:transform .25s ease, box-shadow .25s ease; box-shadow:0 14px 30px -14px rgba(224,50,127,0.6);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 18px 36px -14px rgba(224,50,127,0.75);}
+  .btn-primary svg{width:14px; height:14px;}
+  .btn-ghost{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:16px 28px; border:1px solid var(--line); color:var(--ink);
+    font-family:'Unbounded',sans-serif; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:700;
+    border-radius:999px; transition:border-color .25s ease, color .25s ease;
+  }
+  .btn-ghost:hover{border-color:var(--orange); color:var(--orange);}
+
+  .stat-strip{display:flex; gap:0; flex-wrap:wrap; justify-self:end;}
+  .stat-chip{padding:0 22px; border-left:1px solid var(--line); text-align:left;}
+  .stat-chip:first-child{border-left:none; padding-left:0;}
+  .stat-chip b{display:block; font-family:'Unbounded',sans-serif; font-size:1.7rem; font-weight:800;}
+  .stat-chip span{display:block; font-size:0.66rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); margin-top:4px;}
+
+  /* ---------- section shared ---------- */
+  section{padding:88px 0; position:relative;}
+  .section-tag{display:flex; align-items:center; gap:14px; margin-bottom:14px;}
+  .section-tag .num{font-family:'Unbounded',sans-serif; font-weight:800; font-size:0.78rem; color:var(--ink-soft);}
+  .section-tag .rule{flex:1; height:1px; background:var(--line);}
+  .section-head{max-width:640px; margin:0 0 50px;}
+  .section-head h2{font-size:clamp(2.1rem,4.4vw,3.4rem); text-transform:uppercase; line-height:0.98;}
+  .section-head p{margin-top:16px; color:var(--ink-soft); font-size:1.02rem; line-height:1.7;}
+
+  /* ---------- polaroid gallery: scattered rotation, not a grid ---------- */
+  .polaroid-row{display:flex; gap:26px; overflow-x:auto; padding:20px 4px 30px; scrollbar-width:none;}
+  .polaroid-row::-webkit-scrollbar{display:none;}
+  .polaroid{
+    flex:0 0 auto; width:220px; background:#fff; padding:12px 12px 46px; border-radius:3px;
+    box-shadow:0 20px 40px -18px rgba(0,0,0,0.6); transition:transform .3s ease;
+  }
+  .polaroid:nth-child(odd){transform:rotate(-4deg);}
+  .polaroid:nth-child(even){transform:rotate(3deg);}
+  .polaroid:hover{transform:rotate(0deg) translateY(-6px) scale(1.03); z-index:2;}
+  .polaroid-photo{
+    aspect-ratio:1/1; border-radius:2px; background:var(--bg-deep); display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .polaroid-photo svg{width:38%; height:38%; opacity:0.6;}
+  .polaroid-cap{margin-top:12px; text-align:center; font-family:'Unbounded',sans-serif; font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; color:#2a2530;}
+  .gallery-note{margin-top:6px; color:var(--ink-soft); font-size:0.85rem;}
+
+  /* ---------- services: numbered list, huge index numbers ---------- */
+  .service-list{border-top:1px solid var(--line);}
+  .service-item{
+    display:grid; grid-template-columns:70px 1fr auto; align-items:center; gap:24px;
+    padding:26px 0; border-bottom:1px solid var(--line); transition:padding-left .25s ease;
+  }
+  .service-item:hover{padding-left:10px;}
+  .service-index{font-family:'Unbounded',sans-serif; font-weight:800; font-size:1.4rem; color:transparent; -webkit-text-stroke:1.4px var(--line-accent);}
+  .service-item:hover .service-index{color:transparent; -webkit-text-stroke:1.4px var(--orange);}
+  .service-name h3{font-size:1.3rem; text-transform:none; font-weight:600; margin-bottom:4px;}
+  .service-name p{margin:0; color:var(--ink-soft); font-size:0.88rem; max-width:440px; line-height:1.6; font-weight:300;}
+  .service-price{font-family:'Unbounded',sans-serif; font-size:1.15rem; font-weight:700; white-space:nowrap; text-align:right;}
+  .service-price small{display:block; font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px; font-family:'Manrope',sans-serif; font-weight:400;}
+  .service-price.ask{background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent; font-style:normal;}
+  .services-more{margin-top:34px;}
+
+  /* ---------- about: big pull quote + stat callouts ---------- */
+  .about-wrap{display:grid; grid-template-columns:0.55fr 0.45fr; gap:60px; align-items:start;}
+  .about-quote{font-family:'Unbounded',sans-serif; font-size:clamp(1.7rem,3.4vw,2.5rem); line-height:1.2; text-transform:none; letter-spacing:-0.01em;}
+  .about-quote .accent{background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .about-body{margin-top:24px; color:var(--ink-soft); line-height:1.8; max-width:460px;}
+  .about-stats{display:flex; flex-direction:column; gap:0; border-left:1px solid var(--line); padding-left:36px;}
+  .about-stat{padding:20px 0; border-bottom:1px solid var(--line);}
+  .about-stat:first-child{padding-top:0;}
+  .about-stat b{display:block; font-family:'Unbounded',sans-serif; font-size:2.6rem; font-weight:800;}
+  .about-stat span{display:block; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); margin-top:6px;}
+
+  /* ---------- reviews: horizontal marquee cards ---------- */
+  .review-track{display:flex; gap:20px; overflow-x:auto; padding:4px 4px 20px; scrollbar-width:none;}
+  .review-track::-webkit-scrollbar{display:none;}
+  .review-card{
+    flex:0 0 auto; width:320px; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px 26px;
+  }
+  .review-stars{color:var(--orange); font-size:0.9rem; letter-spacing:2px; margin-bottom:14px;}
+  .review-card p{margin:0 0 18px; font-size:1rem; line-height:1.6; color:var(--ink);}
+  .review-name{font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft);}
+
+  /* ---------- contact: bold split block ---------- */
+  .contact-block{
+    background:var(--card); border:1px solid var(--line); border-radius:24px; padding:60px 50px;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:center; position:relative; overflow:hidden;
+  }
+  .contact-block::after{
+    content:''; position:absolute; bottom:-40%; left:-10%; width:340px; height:340px; border-radius:50%;
+    background:var(--gradient); opacity:0.18; filter:blur(80px); pointer-events:none;
+  }
+  .contact-block h2{font-size:clamp(2rem,4vw,2.9rem); text-transform:uppercase; position:relative;}
+  .contact-block p{color:var(--ink-soft); line-height:1.75; margin:16px 0 26px; max-width:420px; position:relative;}
+  .contact-links{display:flex; flex-direction:column; gap:12px; position:relative;}
+  .ig-link{
+    display:flex; align-items:center; justify-content:space-between; gap:12px; padding:20px 24px;
+    font-family:'Unbounded',sans-serif; font-size:0.85rem; font-weight:600; text-transform:uppercase;
+    background:var(--bg-deep); border:1px solid var(--line); border-radius:14px; transition:border-color .2s ease;
+  }
+  .ig-link:hover{border-color:var(--orange);}
+  .ig-link .arrow{opacity:0.5; transition:transform .2s ease;}
+  .ig-link:hover .arrow{transform:translateX(4px); opacity:1;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--bg-deep); padding:60px 0 26px; border-top:1px solid var(--line);}
+  footer .wrap{display:flex; flex-direction:column; align-items:center; text-align:center;}
+  footer .foot-word{font-family:'Unbounded',sans-serif; font-weight:800; font-size:1.8rem; text-transform:uppercase;}
+  footer p{color:var(--ink-soft); font-size:0.82rem; margin:6px 0;}
+  footer .foot-links{display:flex; justify-content:center; gap:22px; margin:24px 0; list-style:none; padding:0; flex-wrap:wrap;}
+  footer .foot-links a{font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); transition:color .2s ease;}
+  footer .foot-links a:hover{color:var(--orange);}
+
+  /* ---------- sticky bottom cta bar (mobile-app style) ---------- */
+  .bottom-cta{
+    position:fixed; left:0; right:0; bottom:0; z-index:90; background:rgba(13,11,15,0.92); backdrop-filter:blur(10px);
+    border-top:1px solid var(--line); padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    transform:translateY(100%); transition:transform .35s ease;
+  }
+  .bottom-cta.show{transform:translateY(0);}
+  .bottom-cta-text{font-size:0.8rem; color:var(--ink-soft);}
+  .bottom-cta-text b{color:var(--ink); font-family:'Unbounded',sans-serif; display:block; font-size:0.95rem;}
+  .bottom-cta .btn-primary{padding:13px 24px; font-size:0.7rem;}
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (max-width:920px){
+    .hero-sub-row{grid-template-columns:1fr; gap:26px;}
+    .stat-strip{justify-self:start;}
+    .about-wrap{grid-template-columns:1fr; gap:36px;}
+    .about-stats{border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:24px; flex-direction:row; flex-wrap:wrap; gap:30px;}
+    .about-stat{border-bottom:none; padding:0;}
+    .contact-block{grid-template-columns:1fr; padding:40px 28px;}
+  }
+  @media (max-width:640px){
+    section{padding:60px 0;}
+    .service-item{grid-template-columns:44px 1fr; row-gap:6px;}
+    .service-price{grid-column:2; text-align:left;}
+  }
+
+  /* ---------- page loader ---------- */
+  .page-loader{
+    position:fixed; inset:0; z-index:9999;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+    background:var(--bg);
+    transition:opacity .5s ease, visibility .5s ease;
+  }
+  .page-loader.loader-hidden{opacity:0; visibility:hidden; pointer-events:none;}
+  .loader-mark{width:48px; height:48px; border-radius:50%; background:var(--gradient); opacity:0; animation:loaderIn 1.4s ease-in-out infinite;}
+  @keyframes loaderIn{0%,100%{opacity:0.3; transform:scale(0.9);} 50%{opacity:1; transform:scale(1);}}
+  .loader-word{font-family:'Unbounded',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink);}
+  @media (prefers-reduced-motion: reduce){ .loader-mark{animation:none; opacity:1;} }
+</style>
+</head>
+<body>
+<div id="pageLoader" class="page-loader" aria-hidden="true">
+  <div class="loader-mark"></div>
+  <p class="loader-word">Yaribith Nail Artistry</p>
+</div>
+<script>
+  (function(){
+    var loader = document.getElementById('pageLoader');
+    if(!loader) return;
+    document.documentElement.style.overflow = 'hidden';
+    var minTime = new Promise(function(res){ setTimeout(res, 2000); });
+    var pageReady = new Promise(function(res){
+      if(document.readyState === 'complete') res();
+      else window.addEventListener('load', res);
+    });
+    Promise.all([minTime, pageReady]).then(function(){
+      loader.classList.add('loader-hidden');
+      document.documentElement.style.overflow = '';
+      setTimeout(function(){ if(loader.parentNode) loader.remove(); }, 550);
+    });
+  })();
+</script>
+
+<header class="topbar">
+  <div class="topbar-inner wrap">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#050408" stroke-width="2" aria-hidden="true"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2"/></svg>
+      </span>
+      <span class="brand-word">Yaribith</span>
+    </a>
+    <nav class="desktop-nav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="book.html" class="nav-book">Book Now</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+      <span class="bars"><span></span><span></span><span></span></span>
+      Menu
+    </button>
+  </div>
+</header>
+
+<div class="mobile-panel" id="mobilePanel">
+  <button class="close-panel" id="closePanel" aria-label="Close menu">&times;</button>
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+  <a href="book.html">Book Now</a>
+  <div class="mobile-social">
+    <a href="https://instagram.com/ysnailsart1" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>✦ Acrylics</span><span>✦ Polygel</span><span>✦ Manicure</span><span>✦ Pedicure</span><span>✦ Citas Por DM</span><span>✦ Phoenix, AZ</span><span>✦ Acrylics</span><span>✦ Polygel</span><span>✦ Manicure</span><span>✦ Pedicure</span><span>✦ Citas Por DM</span><span>✦ Phoenix, AZ</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-eyebrow-row reveal">
+      <span class="hero-badge">
+        <span class="hero-badge-inner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ff9a5c" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2"/></svg>
+        </span>
+      </span>
+      <span class="eyebrow">Nail Artist · Phoenix, AZ</span>
+    </div>
+    <h1 class="reveal">Nails that<span class="line2"><span class="grad-text">demand</span> a look.</span></h1>
+    <div class="hero-sub-row reveal">
+      <div>
+        <p class="hero-lede">Acrylics, polygel, manicures, and pedicures — bold, precise sets built to turn heads, done by hand with zero rush.</p>
+        <div class="hero-actions">
+          <a href="book.html" class="btn-primary">
+            Book Now
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="services.html" class="btn-ghost">See Pricing</a>
+        </div>
+      </div>
+      <div class="stat-strip">
+        <div class="stat-chip"><b>5★</b><span>Client Rated</span></div>
+        <div class="stat-chip"><b>24h</b><span>DM Response</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-tag reveal"><span class="num">01</span><span class="rule"></span></div>
+    <div class="section-head reveal">
+      <span class="eyebrow">Recent Work</span>
+      <h2>Gallery</h2>
+      <p>A peek at recent sets — swap these placeholders for your favorite client photos any time from the admin panel.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="polaroid-row reveal" id="galleryGrid">
+      <div class="polaroid"><div class="polaroid-photo"><svg viewBox="0 0 24 24" fill="none" stroke="#e0327f" stroke-width="1.3"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg></div><div class="polaroid-cap">Acrylic Set</div></div>
+      <div class="polaroid"><div class="polaroid-photo"><svg viewBox="0 0 24 24" fill="none" stroke="#ff7a3d" stroke-width="1.3"><path d="M12 2v20M2 12h20"/></svg></div><div class="polaroid-cap">Polygel</div></div>
+      <div class="polaroid"><div class="polaroid-photo"><svg viewBox="0 0 24 24" fill="none" stroke="#e0327f" stroke-width="1.3"><circle cx="12" cy="12" r="8"/></svg></div><div class="polaroid-cap">Nail Art</div></div>
+      <div class="polaroid"><div class="polaroid-photo"><svg viewBox="0 0 24 24" fill="none" stroke="#ff7a3d" stroke-width="1.3"><path d="M4 12h16M12 4v16"/></svg></div><div class="polaroid-cap">Manicure</div></div>
+      <div class="polaroid"><div class="polaroid-photo"><svg viewBox="0 0 24 24" fill="none" stroke="#e0327f" stroke-width="1.3"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div><div class="polaroid-cap">Pedicure</div></div>
+    </div>
+    <p class="gallery-note reveal">swipe for more — bold sets, done right</p>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-tag reveal"><span class="num">02</span><span class="rule"></span></div>
+    <div class="section-head reveal">
+      <span class="eyebrow">What I Offer</span>
+      <h2>Popular Services</h2>
+      <p>A few favorites to start — see the full menu for the complete acrylics, polygel, manicure &amp; pedicure lineup.</p>
+    </div>
+
+    <div class="service-list reveal" id="homeServiceGrid"></div>
+    <a href="services.html" class="btn-ghost services-more">View Full Menu</a>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-tag reveal"><span class="num">03</span><span class="rule"></span></div>
+    <div class="section-head reveal">
+      <span class="eyebrow">Client Love</span>
+      <h2>What Clients Say</h2>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="review-track">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p>Best acrylic set I've ever had — the shape was exactly what I sent as inspo and it lasted a full five weeks.</p>
+        <span class="review-name">— Client review</span>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p>Super clean application, and she actually listens when you describe what you want.</p>
+        <span class="review-name">— Client review</span>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p>The polygel held up perfectly for weeks with zero lifting. Already rebooked for my next fill.</p>
+        <span class="review-name">— Client review</span>
+      </div>
+    </div>
+  </div>
+  <!-- Placeholder reviews above — swap in real client testimonials any time. -->
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-tag reveal"><span class="num">04</span><span class="rule"></span></div>
+    <div class="about-wrap">
+      <div class="about-text reveal">
+        <p class="about-quote">Hi, I'm Yaribith — a nail artist obsessed with <span class="accent">bold, precise sets</span> that hold up for your whole week.</p>
+        <p class="about-body">Acrylics, polygel, manicures, and pedicures, all done by hand with zero rush. If you can dream it, we can build it on your nails. Book by DM or through the button below.</p>
+        <div class="hero-actions" style="margin-top:26px;">
+          <a href="book.html" class="btn-primary">
+            Book Now
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="about-stats reveal">
+        <div class="about-stat"><b>5★</b><span>Average Rating</span></div>
+        <div class="about-stat"><b>PHX</b><span>Phoenix, AZ</span></div>
+        <div class="about-stat"><b>DM</b><span>Citas Por DM</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-block reveal">
+      <div>
+        <span class="eyebrow">Get In Touch</span>
+        <h2>Ready When You Are</h2>
+        <p>Ready to book a specific time? Use the Book Now button. For anything else — a quick question, or sending over inspo photos — WhatsApp or Instagram are the fastest way to reach me.</p>
+        <a href="book.html" class="btn-primary">
+          Book Now
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="contact-links">
+        <a class="ig-link" id="whatsappLink" href="http://wa.me/16232903373" target="_blank" rel="noopener">
+          WhatsApp <span class="arrow">→</span>
+        </a>
+        <a class="ig-link" id="instagramLink" href="https://instagram.com/ysnailsart1" target="_blank" rel="noopener">
+          <span id="instagramLabel">@ysnailsart1</span> <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html" class="foot-word">Yaribith</a>
+    <ul class="foot-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://instagram.com/ysnailsart1" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <p>Nail Artist in Phoenix, AZ · Acrylics · Polygel · Manicure · Pedicure</p>
+    <p>&copy; <span id="year"></span> Yaribith Nail Artistry. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="bottom-cta" id="floatingCta">
+  <div class="bottom-cta-text"><b>Ready to book?</b>DMs answered same day</div>
+  <a href="book.html" class="btn-primary">Book Now</a>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const menuToggle = document.getElementById('menuToggle');
+  const mobilePanel = document.getElementById('mobilePanel');
+  const closePanel = document.getElementById('closePanel');
+  menuToggle.addEventListener('click', () => mobilePanel.classList.add('open'));
+  closePanel.addEventListener('click', () => mobilePanel.classList.remove('open'));
+  mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobilePanel.classList.remove('open')));
+
+  const floatingCta = document.getElementById('floatingCta');
+  const heroEl = document.querySelector('.hero');
+  const footerEl = document.querySelector('footer');
+  let heroPassed = false;
+  let footerVisible = false;
+  function updateBottomCta(){
+    floatingCta.classList.toggle('show', heroPassed && !footerVisible);
+  }
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { heroPassed = !entry.isIntersecting; updateBottomCta(); });
+  }, { threshold: 0 });
+  if(heroEl) heroObserver.observe(heroEl);
+  const footerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { footerVisible = entry.isIntersecting; updateBottomCta(); });
+  }, { threshold: 0, rootMargin: '0px 0px -1px 0px' });
+  if(footerEl) footerObserver.observe(footerEl);
+
+  function observeReveals(){
+    const revealEls = document.querySelectorAll('.reveal:not(.observed)');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('in'); } });
+    }, {threshold:0.15});
+    revealEls.forEach(el => { el.classList.add('observed'); io.observe(el); });
+  }
+  observeReveals();
+</script>
+
+<script type="module">
+  import { getActiveServices, getGalleryImages, getBusinessSettings, formatServicePrice } from './site-data.js';
+
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.textContent = str || '';
+    return d.innerHTML;
+  }
+
+  async function renderHomeServices(){
+    const grid = document.getElementById('homeServiceGrid');
+    const services = await getActiveServices();
+    const featured = services.filter(s => s.featured);
+    const toShow = (featured.length > 0 ? featured : services).slice(0, 5);
+
+    if(toShow.length === 0){
+      grid.innerHTML = '<p style="color:var(--ink-soft); padding:24px 0;">The menu is being updated — check back soon.</p>';
+      return;
+    }
+
+    grid.innerHTML = toShow.map((s, i) => {
+      const priceInfo = formatServicePrice(s);
+      const priceHtml = priceInfo.isAsk
+        ? `<div class="service-price ask">Ask</div>`
+        : `<div class="service-price">${priceInfo.label}${priceInfo.sub ? `<small>${priceInfo.sub}</small>` : ''}</div>`;
+      return `
+        <div class="service-item reveal">
+          <div class="service-index">${String(i+1).padStart(2,'0')}</div>
+          <div class="service-name">
+            <h3>${escapeHtml(s.name)}</h3>
+            <p>${escapeHtml(s.description || '')}</p>
+          </div>
+          ${priceHtml}
+        </div>`;
+    }).join('');
+
+    observeReveals();
+  }
+
+  async function renderGallery(){
+    const photos = await getGalleryImages();
+    if(photos.length === 0) return; // keep the placeholder polaroids until she uploads photos
+    const grid = document.getElementById('galleryGrid');
+    grid.innerHTML = photos.map((p) => `
+      <div class="polaroid">
+        <div class="polaroid-photo"><img src="${p.url}" alt="${escapeHtml(p.caption || 'Nail art by Yaribith')}" style="width:100%; height:100%; object-fit:cover;"></div>
+        <div class="polaroid-cap">${escapeHtml(p.caption || 'Yaribith')}</div>
+      </div>
+    `).join('');
+    observeReveals();
+  }
+
+  async function applyContactSettings(){
+    const settings = await getBusinessSettings();
+    if(!settings || !settings.contact) return;
+    const { whatsapp, instagram, location } = settings.contact;
+    if(whatsapp){
+      const link = document.getElementById('whatsappLink');
+      if(link) link.href = `https://wa.me/${whatsapp.replace(/\D/g, '')}`;
+    }
+    if(instagram){
+      const handle = instagram.replace(/^@/, '');
+      const link = document.getElementById('instagramLink');
+      const label = document.getElementById('instagramLabel');
+      if(link) link.href = `https://instagram.com/${handle}`;
+      if(label) label.textContent = `@${handle}`;
+    }
+    if(location){
+      document.querySelectorAll('.js-location').forEach(el => { el.textContent = location; });
+    }
+  }
+
+  renderHomeServices();
+  renderGallery();
+  applyContactSettings();
+</script>
+
+</body>
+</html>

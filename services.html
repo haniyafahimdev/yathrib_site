@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Yaribith Nail Artistry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0b0f; --bg-deep:#050408; --card:#18141b;
+    --ink:#f5eef2; --ink-soft:#ab9aa3;
+    --magenta:#e0327f; --magenta-soft:#ff5fa8;
+    --orange:#ff7a3d; --orange-soft:#ffab6e;
+    --line:rgba(255,255,255,0.16); --line-accent:rgba(255,122,61,0.4);
+    --max-w:1000px;
+    --gradient:linear-gradient(135deg, var(--magenta), var(--orange));
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'Manrope',sans-serif; font-weight:300;}
+  h1,h2,h3{font-family:'Unbounded',sans-serif; font-weight:700; margin:0; color:var(--ink); letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:var(--max-w); margin:0 auto; padding:0 32px;}
+  .mono{font-family:'Manrope',sans-serif;}
+  .eyebrow{font-family:'Manrope',sans-serif; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange);}
+
+  .topbar{position:sticky; top:0; z-index:100; background:rgba(13,11,15,0.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  .topbar-inner{display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1240px; margin:0 auto;}
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{width:34px; height:34px; border-radius:50%; background:var(--gradient); display:flex; align-items:center; justify-content:center; flex:0 0 auto;}
+  .brand-mark svg{width:17px; height:17px;}
+  .brand-word{font-family:'Unbounded',sans-serif; font-weight:800; font-size:1.05rem; letter-spacing:-0.01em; line-height:1; text-transform:uppercase;}
+  .menu-toggle{
+    display:flex; align-items:center; gap:8px; background:none; border:1px solid var(--line); color:var(--ink);
+    cursor:pointer; padding:9px 16px; border-radius:999px; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+    transition:border-color .25s ease;
+  }
+  .menu-toggle:hover{border-color:var(--orange);}
+  .menu-toggle .bars{display:flex; flex-direction:column; gap:3px;}
+  .menu-toggle .bars span{width:14px; height:1.5px; background:var(--ink); display:block;}
+
+  .desktop-nav{display:none; align-items:center; gap:36px;}
+  .desktop-nav a{
+    font-family:'Manrope',sans-serif; font-size:0.84rem; font-weight:600; color:var(--ink-soft);
+    position:relative; padding:6px 0; transition:color .2s ease;
+  }
+  .desktop-nav a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--gradient);
+    transition:width .25s ease;
+  }
+  .desktop-nav a:hover{color:var(--ink);}
+  .desktop-nav a:hover::after{width:100%;}
+  .desktop-nav a.current{color:var(--ink);}
+  .desktop-nav a.current::after{width:100%;}
+  .desktop-nav .nav-book{
+    font-family:'Unbounded',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase;
+    background:var(--gradient); color:var(--bg-deep); padding:11px 22px; border-radius:999px; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .desktop-nav .nav-book::after{display:none;}
+  .desktop-nav .nav-book:hover{color:var(--bg-deep); transform:translateY(-2px); box-shadow:0 10px 22px -10px rgba(224,50,127,0.7);}
+
+  @media (min-width:900px){
+    .desktop-nav{display:flex;}
+    .menu-toggle{display:none;}
+  }
+  .mobile-panel{
+    display:none; position:fixed; inset:0; z-index:200; background:var(--bg-deep);
+    flex-direction:column; padding:100px 32px 40px;
+  }
+  .mobile-panel.open{display:flex;}
+  .mobile-panel a{font-family:'Unbounded',sans-serif; font-size:2rem; font-weight:700; padding:14px 0; border-bottom:1px solid var(--line); text-transform:uppercase;}
+  .mobile-panel .close-panel{position:absolute; top:20px; right:24px; background:none; border:none; color:var(--ink); font-size:2rem; cursor:pointer; line-height:1;}
+
+  .ticker{background:var(--gradient); overflow:hidden; padding:10px 0; white-space:nowrap;}
+  .ticker-track{display:inline-flex; animation:scrollTicker 26s linear infinite;}
+  .ticker-track span{
+    font-family:'Unbounded',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--bg-deep); padding:0 28px; display:inline-block;
+  }
+  @keyframes scrollTicker{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  .btn-primary{display:inline-flex; align-items:center; gap:10px; padding:16px 30px; background:var(--gradient); color:var(--bg-deep); font-family:'Unbounded',sans-serif; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:700; border-radius:999px; transition:transform .25s ease, box-shadow .25s ease; box-shadow:0 14px 30px -14px rgba(224,50,127,0.6);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 18px 36px -14px rgba(224,50,127,0.75);}
+  .btn-primary svg{width:14px; height:14px;}
+  .ig-link{display:inline-flex; align-items:center; gap:10px; padding:13px 22px; border:1px solid var(--line); border-radius:999px; font-size:0.85rem; color:var(--ink); transition:border-color .2s ease;}
+  .ig-link:hover{border-color:var(--orange);}
+  .ig-link svg{width:16px; height:16px;}
+
+  .hero-band{padding:60px 0 8px; text-align:center; border-bottom:1px solid var(--line); position:relative; overflow:hidden;}
+  .hero-band::before{content:''; position:absolute; top:-40%; left:50%; transform:translateX(-50%); width:480px; height:480px; border-radius:50%; background:var(--gradient); opacity:0.16; filter:blur(90px); pointer-events:none;}
+  .hero-band h1{font-size:clamp(2.6rem,6vw,4.2rem); margin-top:14px; text-transform:uppercase; position:relative;}
+  .hero-band p{color:var(--ink-soft); max-width:480px; margin:16px auto 0; line-height:1.7; position:relative;}
+  .hero-links{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:26px 0; position:relative;}
+  .price-note{text-align:center; color:var(--ink-soft); font-size:0.85rem; max-width:480px; margin:0 auto 40px; position:relative;}
+
+  section{padding:56px 0 0;}
+  .category-block{margin-bottom:64px; position:relative;}
+  .category-head{display:flex; align-items:baseline; gap:16px; margin-bottom:8px; position:relative;}
+  .category-index{font-family:'Unbounded',sans-serif; font-weight:800; font-size:1rem; color:transparent; -webkit-text-stroke:1.2px var(--line-accent);}
+  .category-head h2{font-size:clamp(1.5rem,2.8vw,1.9rem); text-transform:uppercase;}
+  .category-rule{height:1px; flex:1; background:var(--line);}
+
+  .service-rows{border-top:1px solid var(--line);}
+  .service-row{display:flex; align-items:baseline; justify-content:space-between; gap:24px; padding:22px 0; border-bottom:1px solid var(--line); transition:padding-left .2s ease;}
+  .service-row:hover{padding-left:8px;}
+  .service-row-name{display:flex; align-items:baseline; gap:10px; flex:1;}
+  .service-row-name .badge{font-family:'Manrope',sans-serif; font-weight:700; font-size:0.6rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--bg-deep); background:var(--gradient); border-radius:999px; padding:3px 10px; white-space:nowrap;}
+  .service-row-name-inner h3{font-size:1.15rem; margin-bottom:4px; text-transform:none; font-weight:600;}
+  .service-row-name-inner p{margin:0; color:var(--ink-soft); font-size:0.86rem; max-width:460px; line-height:1.6; font-weight:300;}
+  .service-row-price{font-family:'Unbounded',sans-serif; font-weight:700; font-size:1.05rem; color:var(--ink); white-space:nowrap; text-align:right;}
+  .service-row-price small{display:block; font-size:0.6rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); margin-top:3px; font-family:'Manrope',sans-serif; font-weight:400;}
+  .service-row-price.ask{background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent; font-family:'Unbounded',sans-serif; font-size:0.98rem;}
+
+  .cta-band{text-align:center; padding:70px 0 100px; border-top:1px solid var(--line); margin-top:20px;}
+
+  footer{background:var(--bg-deep); padding:60px 0 26px; text-align:center; border-top:1px solid var(--line);}
+  footer .foot-word{font-family:'Unbounded',sans-serif; font-weight:800; font-size:1.8rem; text-transform:uppercase;}
+  footer p{color:var(--ink-soft); font-size:0.82rem; margin:6px 0;}
+  footer .foot-links{display:flex; justify-content:center; gap:22px; margin:24px 0; list-style:none; padding:0; flex-wrap:wrap;}
+  footer .foot-links a{font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); transition:color .2s ease;}
+  footer .foot-links a:hover{color:var(--orange);}
+
+  .bottom-cta{
+    position:fixed; left:0; right:0; bottom:0; z-index:90; background:rgba(13,11,15,0.92); backdrop-filter:blur(10px);
+    border-top:1px solid var(--line); padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .bottom-cta-text{font-size:0.8rem; color:var(--ink-soft);}
+  .bottom-cta-text b{color:var(--ink); font-family:'Unbounded',sans-serif; display:block; font-size:0.95rem;}
+  .bottom-cta .btn-primary{padding:13px 24px; font-size:0.7rem;}
+  body{padding-bottom:76px;}
+
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (max-width:760px){
+    .service-row{flex-direction:column; align-items:flex-start; gap:8px;}
+    .service-row-price{text-align:left;}
+  }
+  /* ---------- page loader ---------- */
+  .page-loader{position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:var(--bg); transition:opacity .5s ease, visibility .5s ease;}
+  .page-loader.loader-hidden{opacity:0; visibility:hidden; pointer-events:none;}
+  .loader-mark{width:48px; height:48px; border-radius:50%; background:var(--gradient); opacity:0; animation:loaderIn 1.4s ease-in-out infinite;}
+  @keyframes loaderIn{0%,100%{opacity:0.3; transform:scale(0.9);} 50%{opacity:1; transform:scale(1);}}
+  .loader-word{font-family:'Unbounded',sans-serif; font-weight:700; font-size:0.85rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink);}
+  @media (prefers-reduced-motion: reduce){ .loader-mark{animation:none; opacity:1;} }
+</style>
+</head>
+<body>
+<div id="pageLoader" class="page-loader" aria-hidden="true">
+  <div class="loader-mark"></div>
+  <p class="loader-word">Yaribith Nail Artistry</p>
+</div>
+<script>
+  (function(){
+    var loader = document.getElementById('pageLoader');
+    if(!loader) return;
+    document.documentElement.style.overflow = 'hidden';
+    var minTime = new Promise(function(res){ setTimeout(res, 2000); });
+    var pageReady = new Promise(function(res){ if(document.readyState === 'complete') res(); else window.addEventListener('load', res); });
+    Promise.all([minTime, pageReady]).then(function(){
+      loader.classList.add('loader-hidden');
+      document.documentElement.style.overflow = '';
+      setTimeout(function(){ if(loader.parentNode) loader.remove(); }, 550);
+    });
+  })();
+</script>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#050408" stroke-width="2" aria-hidden="true"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2"/></svg>
+      </span>
+      <span class="brand-word">Yaribith</span>
+    </a>
+    <nav class="desktop-nav">
+      <a href="index.html">Home</a>
+      <a href="services.html" class="current">Services</a>
+      <a href="index.html#gallery">Gallery</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="book.html" class="nav-book">Book Now</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+      <span class="bars"><span></span><span></span><span></span></span>
+      Menu
+    </button>
+  </div>
+</header>
+
+<div class="mobile-panel" id="mobilePanel">
+  <button class="close-panel" id="closePanel" aria-label="Close menu">&times;</button>
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="index.html#gallery">Gallery</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="book.html">Book Now</a>
+</div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>✦ Acrylics</span><span>✦ Polygel</span><span>✦ Manicure</span><span>✦ Pedicure</span><span>✦ Citas Por DM</span><span>✦ Phoenix, AZ</span><span>✦ Acrylics</span><span>✦ Polygel</span><span>✦ Manicure</span><span>✦ Pedicure</span><span>✦ Citas Por DM</span><span>✦ Phoenix, AZ</span>
+  </div>
+</div>
+
+<div class="hero-band">
+  <span class="eyebrow">The Full Menu</span>
+  <h1>Price List</h1>
+  <p>Acrylics, polygel, manicures, and pedicures — full pricing below. Not sure what you need? DM on Instagram and I'll help you pick.</p>
+  <div class="hero-links">
+    <a class="ig-link" id="whatsappLink" href="http://wa.me/16232903373" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.5 8.5 0 01-12.4 7.5L3 20l1.1-5.5A8.5 8.5 0 1121 11.5z"/></svg>
+      WhatsApp
+    </a>
+    <a class="ig-link" id="instagramLink" href="https://instagram.com/ysnailsart1" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      <span id="instagramLabel">@ysnailsart1</span>
+    </a>
+  </div>
+  <p class="price-note">Pricing is for bare nails only — I do not fill or rebalance other techs' work. A few are marked "ask for pricing" since they're quoted per style.</p>
+</div>
+
+<section>
+  <div class="wrap">
+    <div id="servicesContainer">
+      <p style="text-align:center; color:var(--ink-soft); font-style:italic; font-family:'Unbounded',sans-serif; font-size:1.2rem;">Loading services…</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band wrap reveal">
+  <span class="eyebrow">Ready When You Are</span>
+  <h2 style="margin-top:10px; margin-bottom:26px;">Let's Get You Booked</h2>
+  <a href="book.html" class="btn-primary">
+    Book Now
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</div>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html" class="foot-word">Yaribith</a>
+    <ul class="foot-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="index.html#gallery">Gallery</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="https://instagram.com/ysnailsart1" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <p>Nail Artist in Phoenix, AZ</p>
+    <p>&copy; <span id="year"></span> Yaribith Nail Artistry. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="bottom-cta" id="floatingCta">
+  <div class="bottom-cta-text"><b>Ready to book?</b>DMs answered same day</div>
+  <a href="book.html" class="btn-primary">Book Now</a>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const menuToggle = document.getElementById('menuToggle');
+  const mobilePanel = document.getElementById('mobilePanel');
+  const closePanel = document.getElementById('closePanel');
+  menuToggle.addEventListener('click', () => mobilePanel.classList.add('open'));
+  closePanel.addEventListener('click', () => mobilePanel.classList.remove('open'));
+  mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobilePanel.classList.remove('open')));
+
+  function observeReveals(){
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('in'); } });
+    }, {threshold:0.12});
+    revealEls.forEach(el => io.observe(el));
+  }
+  observeReveals();
+</script>
+
+<script type="module">
+  import { getActiveServices, formatServicePrice } from './site-data.js';
+
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.textContent = str || '';
+    return d.innerHTML;
+  }
+
+  async function renderServices(){
+    const container = document.getElementById('servicesContainer');
+    const services = await getActiveServices();
+
+    if(services.length === 0){
+      container.innerHTML = '<p style="text-align:center; color:var(--ink-soft); font-style:italic; font-family:\'Unbounded\',sans-serif; font-size:1.2rem;">The menu is being updated — check back soon, or DM on Instagram.</p>';
+      return;
+    }
+
+    const categories = [];
+    const byCategory = {};
+    services.forEach(s => {
+      const cat = s.category || 'Other';
+      if(!byCategory[cat]){ byCategory[cat] = []; categories.push(cat); }
+      byCategory[cat].push(s);
+    });
+
+    container.innerHTML = categories.map((cat, ci) => {
+      const rowsHtml = byCategory[cat].map(s => {
+        const priceInfo = formatServicePrice(s);
+        const isPopular = /tier 2/i.test(s.name);
+        const priceHtml = priceInfo.isAsk
+          ? `<div class="service-row-price ask">Ask for pricing</div>`
+          : `<div class="service-row-price">${priceInfo.label}${priceInfo.sub ? `<small>${priceInfo.sub}</small>` : ''}</div>`;
+        return `
+          <div class="service-row reveal">
+            <div class="service-row-name">
+              <div class="service-row-name-inner">
+                <h3>${escapeHtml(s.name)}${isPopular ? ' <span class="badge">Most Popular</span>' : ''}</h3>
+                <p>${escapeHtml(s.description || '')}</p>
+              </div>
+            </div>
+            ${priceHtml}
+          </div>`;
+      }).join('');
+      return `
+        <div class="category-block reveal">
+          <div class="category-head"><span class="category-index">${String(ci+1).padStart(2,'0')}</span><h2>${escapeHtml(cat)}</h2><span class="category-rule"></span></div>
+          <div class="service-rows">${rowsHtml}</div>
+        </div>`;
+    }).join('');
+
+    observeReveals();
+  }
+
+  renderServices();
+</script>
+
+</body>
+</html>
