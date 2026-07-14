@@ -50,7 +50,7 @@ export default async function handler(req, res) {
            </td></tr>`
         : '',
       ctaLabel: 'Review in Dashboard',
-      ctaUrl: 'https://REPLACE-WITH-DEPLOYED-DOMAIN.vercel.app/admin.html',
+      ctaUrl: 'https://yathrib-site.vercel.app/admin.html',
       footerNote: 'Confirm or decline this request from your admin dashboard.'
     });
   } else if (type === 'confirmed') {
