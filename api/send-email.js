@@ -44,9 +44,9 @@ export default async function handler(req, res) {
         ...(notes ? [['Notes', escapeHtml(notes)]] : [])
       ],
       imagesHtml: (images && images.length)
-        ? `<tr><td style="padding:6px 0;">
-             <p style="margin:0 0 8px; font-family:Georgia,serif; font-size:13px; color:#5c5850; text-transform:uppercase; letter-spacing:1px;">Inspo Photos</p>
-             ${images.map(url => `<a href="${url}" style="display:inline-block; margin:0 8px 8px 0;"><img src="${url}" width="72" height="72" style="border-radius:10px; object-fit:cover; display:block;"></a>`).join('')}
+        ? `<tr><td style="padding:10px 0 6px;">
+             <p style="margin:0 0 10px; font-family:Georgia,serif; font-size:13px; color:#ab9aa3; text-transform:uppercase; letter-spacing:1px;">Inspo Photos</p>
+             ${images.map(url => `<a href="${url}" style="display:inline-block; margin:0 8px 8px 0;"><img src="${url}" width="72" height="72" style="border-radius:10px; object-fit:cover; display:block; border:1px solid rgba(255,255,255,0.14);"></a>`).join('')}
            </td></tr>`
         : '',
       ctaLabel: 'Review in Dashboard',
@@ -125,26 +125,37 @@ export default async function handler(req, res) {
 }
 
 function emailTemplate({ heading, intro, rows, imagesHtml = '', ctaLabel, ctaUrl, footerNote }) {
+  // Matches the site's dark theme: near-black background, magenta/orange
+  // gradient accents, warm off-white body text.
+  const bg = '#0d0b0f';
+  const bgDeep = '#050408';
+  const card = '#18141b';
+  const ink = '#f5eef2';
+  const inkSoft = '#ab9aa3';
+  const magenta = '#e0327f';
+  const orange = '#ff7a3d';
+  const line = 'rgba(255,255,255,0.14)';
+
   const rowsHtml = rows.map(([label, value]) => `
     <tr>
-      <td style="padding:10px 0; border-bottom:1px solid #e5ddc8; font-family:Helvetica,Arial,sans-serif; font-size:12px; letter-spacing:0.5px; text-transform:uppercase; color:#5c5850; width:110px; vertical-align:top;">${label}</td>
-      <td style="padding:10px 0; border-bottom:1px solid #e5ddc8; font-family:Helvetica,Arial,sans-serif; font-size:15px; color:#1a1a1a;">${value}</td>
+      <td style="padding:12px 0; border-bottom:1px solid ${line}; font-family:Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:${inkSoft}; width:110px; vertical-align:top;">${label}</td>
+      <td style="padding:12px 0; border-bottom:1px solid ${line}; font-family:Helvetica,Arial,sans-serif; font-size:15px; color:${ink};">${value}</td>
     </tr>
   `).join('');
 
   return `
-  <div style="background-color:#faf7f0; padding:32px 16px; font-family:Helvetica,Arial,sans-serif;">
+  <div style="background-color:${bgDeep}; padding:32px 16px; font-family:Helvetica,Arial,sans-serif;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px; margin:0 auto;">
       <tr>
-        <td style="background:linear-gradient(135deg,#c22a6c,#ffab6e); background-color:#c22a6c; border-radius:20px 20px 0 0; padding:28px 32px; text-align:center;">
-          <p style="margin:0; font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:26px; color:#ffffff; letter-spacing:0.5px;">Yaribith</p>
-          <p style="margin:4px 0 0; font-family:Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.85);">Nail Artist in Phoenix, AZ</p>
+        <td style="background:linear-gradient(135deg,${magenta},${orange}); background-color:${magenta}; border-radius:16px 16px 0 0; padding:30px 32px; text-align:center;">
+          <p style="margin:0; font-family:Georgia,'Times New Roman',serif; font-style:italic; font-weight:700; font-size:26px; color:${bgDeep}; letter-spacing:0.5px;">Yaribith</p>
+          <p style="margin:6px 0 0; font-family:Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(5,4,8,0.75);">Nail Artist in Phoenix, AZ</p>
         </td>
       </tr>
       <tr>
-        <td style="background-color:#ffffff; padding:32px; border-left:1px solid #e5ddc8; border-right:1px solid #e5ddc8;">
-          <h1 style="margin:0 0 10px; font-family:Georgia,'Times New Roman',serif; font-size:22px; color:#c22a6c; font-weight:normal;">${heading}</h1>
-          <p style="margin:0 0 22px; font-family:Helvetica,Arial,sans-serif; font-size:15px; color:#1a1a1a; line-height:1.6;">${intro}</p>
+        <td style="background-color:${card}; padding:32px; border-left:1px solid ${line}; border-right:1px solid ${line};">
+          <h1 style="margin:0 0 10px; font-family:Georgia,'Times New Roman',serif; font-size:22px; color:${magenta}; font-weight:normal;">${heading}</h1>
+          <p style="margin:0 0 22px; font-family:Helvetica,Arial,sans-serif; font-size:15px; color:${ink}; line-height:1.6;">${intro}</p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
             ${rowsHtml}
           </table>
@@ -154,17 +165,17 @@ function emailTemplate({ heading, intro, rows, imagesHtml = '', ctaLabel, ctaUrl
           ${ctaLabel ? `
           <table role="presentation" cellpadding="0" cellspacing="0" style="margin:26px 0 6px;">
             <tr>
-              <td style="border-radius:999px; background-color:#c22a6c;">
-                <a href="${ctaUrl}" style="display:inline-block; padding:13px 28px; font-family:Helvetica,Arial,sans-serif; font-size:13px; letter-spacing:1px; text-transform:uppercase; color:#ffffff; text-decoration:none; border-radius:999px;">${ctaLabel}</a>
+              <td style="border-radius:999px; background:linear-gradient(135deg,${magenta},${orange}); background-color:${magenta};">
+                <a href="${ctaUrl}" style="display:inline-block; padding:13px 28px; font-family:Helvetica,Arial,sans-serif; font-weight:bold; font-size:13px; letter-spacing:1px; text-transform:uppercase; color:${bgDeep}; text-decoration:none; border-radius:999px;">${ctaLabel}</a>
               </td>
             </tr>
           </table>` : ''}
-          <p style="margin:22px 0 0; font-family:Helvetica,Arial,sans-serif; font-size:13px; color:#5c5850; line-height:1.6;">${footerNote}</p>
+          <p style="margin:22px 0 0; font-family:Helvetica,Arial,sans-serif; font-size:13px; color:${inkSoft}; line-height:1.6;">${footerNote}</p>
         </td>
       </tr>
       <tr>
-        <td style="background-color:#faf7f0; border-radius:0 0 20px 20px; padding:20px 32px; text-align:center; border:1px solid #e5ddc8; border-top:none;">
-          <p style="margin:0; font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:13px; color:#5c5850;">with love, always 🌿</p>
+        <td style="background-color:${bg}; border-radius:0 0 16px 16px; padding:20px 32px; text-align:center; border:1px solid ${line}; border-top:none;">
+          <p style="margin:0; font-family:Georgia,'Times New Roman',serif; font-style:italic; font-size:13px; color:${inkSoft};">with love, always 🌿</p>
         </td>
       </tr>
     </table>
